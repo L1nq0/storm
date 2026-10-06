@@ -28,7 +28,6 @@ import org.apache.storm.Config;
 import org.apache.storm.daemon.worker.WorkerState;
 import org.apache.storm.metric.api.IMetric;
 import org.apache.storm.serialization.KryoTupleDeserializer;
-import org.apache.storm.serialization.TupleDeserializationException;
 import org.apache.storm.task.GeneralTopologyContext;
 import org.apache.storm.tuple.AddressedTuple;
 import org.apache.storm.tuple.Tuple;
@@ -47,7 +46,6 @@ public class DeserializingConnectionCallback implements IConnectionCallback, IMe
     // the fatal handling in StormServerHandler. TupleDeserializationException is thrown by KryoTupleDeserializer
     // for unknown task or stream ids.
     private static final Set<Class<?>> TOLERATED_DESERIALIZATION_FAILURES = new HashSet<>(Arrays.asList(
-        TupleDeserializationException.class,
         IOException.class,
         KryoException.class,
         IllegalArgumentException.class,

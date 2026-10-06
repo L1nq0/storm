@@ -145,9 +145,11 @@ public class DeserializingConnectionCallbackTest {
     @Test
     public void testUnknownStreamIdDroppedAndBatchContinues() {
         Map<String, Object> conf = baseConf();
+        // IdDictionary assigns ids 1..n to the component's n declared streams, so the first id past that count is undeclared.
+        int undeclaredStreamId = Utils.getComponentCommon(context.getRawTopology(), SOURCE_COMPONENT).get_streams().size() + 1;
         Output out = new Output(16, 32);
         out.writeInt(SOURCE_TASK_ID, true); // source task that exists in the topology
-        out.writeInt(3, true);              // stream id the source component does not declare
+        out.writeInt(undeclaredStreamId, true);
         byte[] unknownStream = out.toBytes();
 
         TupleDeserializationException thrown = assertThrows(TupleDeserializationException.class,

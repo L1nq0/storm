@@ -19,8 +19,4 @@ public class TupleDeserializationException extends IllegalArgumentException {
     public TupleDeserializationException(String message) {
         super(message);
     }
-
-    public TupleDeserializationException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
